@@ -1,7 +1,7 @@
 iflychat-joomla-3
 =================
 
-iFlyChat Joomla 2.5 Extension (both component and module)
+iFlyChat Joomla 3.3 Extension (both component and module)
 
 To see the demo of the product, please visit - https://iflychat.com
 

@@ -1,7 +1,6 @@
 <?php
 /**
  * @package iFlyChat
- * @version 1.0.0
  * @copyright Copyright (C) 2014 iFlyChat. All rights reserved.
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  * @author iFlyChat Team
@@ -69,12 +68,26 @@ $data = array(
     'enableStatus' => TRUE,
     'validState' => array('available','offline','busy','idle')
 );
+
+//Get friend's id
+if(file_exists(JPATH_ROOT .'/components/com_community/libraries/core.php')) {
+    if($comp->get('iflychat_enable_friends', 1) == 2){
+        require_once( JPATH_ROOT .'/components/com_community/libraries/core.php' );
+        $data['rel'] = '1';
+        $final_list = array();
+        $final_list['1']['name'] = 'friend';
+        $final_list['1']['plural'] = 'friends';
+        $final_list['1']['valid_uids'] = CFactory::getUser($user->id)->getFriendIds();
+        $data['valid_uids'] = $final_list;
+    }
+}
+
 if($comp->get('iflychat_user_picture', '1') == 1) {
     $data['up'] = iflychat_get_user_pic_url();
 }
 
 $data['upl'] = iflychat_get_user_profile_url();
-
+if(!($data['rel']==1 && $user->id==0)){
 try {
 //HTTP request
     jimport('joomla.http');
@@ -138,6 +151,10 @@ catch(Exception $e)
     $document =& JFactory::getDocument();
     $document->setMimeEncoding('application/json');
     print_r(json_encode($var));
+}
+}
+else {
+    print_r('Access Denied');
 }
 
 
@@ -207,23 +224,48 @@ function check_plain($text) {
 }
 function iflychat_get_user_pic_url() {
     $url = '';
-    $module = JModuleHelper::getModule('mod_iflychat');
-    $comp = JComponentHelper::getParams('com_iflychat');
-    if($comp->get('iflychat_theme', 1) == 1) {
-        $iflychat_theme = 'light';
+
+    if(file_exists(JPATH_ROOT .'/components/com_community/libraries/core.php')) {
+        require_once( JPATH_ROOT .'/components/com_community/libraries/core.php' );
+        $user = JFactory::getUser()->id;
+        $url = CFactory::getUser($user)->getAvatar();
+        return $url;
     }
     else {
-        $iflychat_theme = 'dark';
+        $module = JModuleHelper::getModule('mod_iflychat');
+        $comp = JComponentHelper::getParams('com_iflychat');
+        if($comp->get('iflychat_theme', 1) == 1) {
+            $iflychat_theme = 'light';
+        }
+        else {
+            $iflychat_theme = 'dark';
+        }
+        $url = JURI::base().'modules/'.$module->module . '/themes/' . $iflychat_theme . '/images/default_avatar.png';
+        $pos = strpos($url, ':');
+        if($pos !== false) {
+            $url = substr($url, $pos+1);
+        }
+        return $url;
     }
-    $url = JURI::base().'modules/'.$module->module . '/themes/' . $iflychat_theme . '/images/default_avatar.png';
-    $pos = strpos($url, ':');
-    if($pos !== false) {
-        $url = substr($url, $pos+1);
-    }
-    return $url;
 }
 
 function iflychat_get_user_profile_url() {
-    $upl = 'javascript:void()';
-    return $upl;
+    if(file_exists(JPATH_ROOT .'/components/com_community/libraries/core.php')) {
+
+        require_once( JPATH_ROOT .'/components/com_community/libraries/core.php' );
+        $user = JFactory::getUser()->id;
+        $host = JURI::getInstance()->getHost();
+        $url = JURI::base();
+        $var = explode(":", $url);
+        $profileLink = CUrlHelper::userLink($user);
+        $upl = $var[0].'://'.$host.$profileLink;
+        return $upl;
+
+    }else {
+
+
+        $upl = 'javascript:void()';
+        return $upl;
+    }
+
 }

@@ -428,12 +428,13 @@
                     />
         </fieldset>
         <fieldset name="list_control"
-                  label="iFlyChat Online User List Control">
+                  label="iFlyChat Online User List Control"
+                  addfieldpath="/administrator/components/com_iflychat/models/fields">
             <field
                     name="iflychat_minimize_chat_user_list"
                     type="radio"
-                    class="btn-group btn-group-yesno"
                     label="MOD_IFLYCHAT_MINIMIZE_CHAT_USER_LIST"
+                    class="btn-group btn-group-yesno"
                     default="2"
                     >
                 <option value="1">JYES</option>
@@ -442,8 +443,8 @@
             <field
                     name="iflychat_enable_search_bar"
                     type="radio"
-                    class="btn-group btn-group-yesno"
                     label="MOD_IFLYCHAT_ENABLE_SEARCH_BAR"
+                    class="btn-group btn-group-yesno"
                     default="1"
                     >
                 <option value="1">JYES</option>
@@ -451,9 +452,8 @@
             </field>
             <field
                     name="iflychat_rel"
-                    type="radio"
-                    class="btn-group btn-group-yesno"
-                    label="MOD_IFLYCHAT_REL"
+                    type="custom2"
+                    label2="MOD_IFLYCHAT_REL"
                     default="0"
                     >
                 <option value="0">All users</option>
@@ -462,20 +462,28 @@
 
             <field
                     name="iflychat_ur_name"
-                    type="text"
-                    label="MOD_IFLYCHAT_UR_NAME"
+                    type="custom3"
+                    label3="MOD_IFLYCHAT_UR_NAME"
                     default=""
-                    size="40"
+
                     />
             <field
                     name="iflychat_only_loggedin"
-                    type="radio"
-                    class="btn-group btn-group-yesno"
-                    label="MOD_IFLYCHAT_ONLY_LOGGEDIN"
+                    type="custom4"
+                    label4="MOD_IFLYCHAT_ONLY_LOGGEDIN"
                     default="1"
                     >
                 <option value="1">JYES</option>
                 <option value="2">JNO</option>
+            </field>
+            <field
+                    name="iflychat_enable_friends"
+                    type="custom"
+                    label1="MOD_IFLYCHAT_ENABLE_FRIENDS"
+                    default="1"
+                    >
+                <option value="2">JYES</option>
+                <option value="1">JNO</option>
             </field>
         </fieldset>
 

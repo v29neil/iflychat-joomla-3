@@ -115,6 +115,21 @@ class modIflychatHelper
         $my_settings['text_clear_room'] = JText::_('MOD_CLEAR_ALL_MESSAGES');
         $my_settings['msg_p'] = JText::_('MOD_TYPE_AND_PRESS_ENTER');
 
+        if($this->iflychat_check_chat_admin()) {
+
+            $my_settings['text_ban'] = JText::_('MOD_BAN');
+            $my_settings['text_ban_ip'] = JText::_('MOD_BAN_IP');
+            $my_settings['text_kick'] = JText::_('MOD_KICK');
+            $my_settings['text_ban_window_title'] = JText::_('MOD_BANNED_USERS');
+            $my_settings['text_ban_window_default'] = JText::_('MOD_NO_BAN');
+            $my_settings['text_ban_window_loading'] = JText::_('MOD_LOADING');
+            $my_settings['text_manage_rooms'] = JText::_('MOD_MANAGE_ROOMS');
+            $my_settings['text_unban'] = JText::_('MOD_UNBAN');
+            $my_settings['text_unban_ip'] = JText::_('MOD_UNBAN_IP');
+
+
+        }
+
         if($compParams->get('drupalchat_show_admin_list', 2) == 1) {
             $my_settings['text_support_chat_init_label'] = $compParams->get('iflychat_support_chat_init_label', 'Chat with us');
             $my_settings['text_support_chat_box_header'] = $compParams->get('iflychat_support_chat_box_header', 'Support');

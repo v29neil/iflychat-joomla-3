@@ -1,4 +1,4 @@
-iflychat-joomla-3
+iflychat-joomla-3.3
 =================
 
 iFlyChat Joomla 3.3 Extension (both component and module)

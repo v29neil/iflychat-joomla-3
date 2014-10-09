@@ -12,10 +12,19 @@ defined('_JEXEC') or die;
 
 
 
-// Tell the browser not to cache this page.
-JResponse::setHeader('Expires', 'Mon, 26 Jul 1997 05:00:00 GMT', true);
+// Access check.
+if (!JFactory::getUser()->authorise('core.manage', 'com_iflychat')) {
+    return JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
+}
 
-// Execute the controller.
-$controller = JControllerLegacy::getInstance('Iflychat');
-$controller->execute(JRequest::getCmd('task'));
+// import Joomla controller library
+jimport('joomla.application.component.controller');
+
+// Get an instance of the controller
+$controller = JControllerLegacy::getInstance('iflychat');
+
+// Perform the Request task
+$controller->execute(JFactory::getApplication()->input->get('task'));
+
+// Redirect if set by the controller
 $controller->redirect();

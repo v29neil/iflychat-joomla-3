@@ -46,6 +46,7 @@ else {
     $iflychat_theme = 'dark';
 }
 
+
 //data array
 $data = array(
     'uname' => ($user->id)?$user->name:iflychat_get_current_guest_name(),
